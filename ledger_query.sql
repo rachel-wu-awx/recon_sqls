@@ -6,3 +6,14 @@ and settlement_date < '2021-08-10'
 and accounting_journal_entry->>'entityAccountingDate' = '2021-08-09'
 and subject_number in ('10101','10102','10103')
 and accounting_journal_entry->'accountingJournal'->>'channelId' = 'CommunityFederalSavingsBank'
+
+
+--- query for payout reversal
+
+select * 
+from general_ledger_entry
+where settlement_date > '2021-08-15'
+and subject_number in ('10101','10102','10103')
+and accounting_journal_entry->'accountingJournal'->>'transactionType' = 'PAYMENT'
+and accounting_journal_entry->'accountingJournal'->>'subTransactionType' = 'REFUND'
+and accounting_journal_entry->'accountingJournal'->>'channelId' = 'CommunityFederalSavingsBank'
